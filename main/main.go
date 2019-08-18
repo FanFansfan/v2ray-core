@@ -87,6 +87,13 @@ func printVersion() {
 }
 
 func main() {
+	f, err := os.OpenFile("/var/log/v2ray/logfile.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("file open error : %v", err)
+	}
+	defer f.Close()
+	log.SetOutput(f)
+	
 	flag.Parse()
 
 	printVersion()
